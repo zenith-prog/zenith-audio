@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Zenith App</title>
+    <!-- Verlinkung zur externen CSS-Datei -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase App (modular) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="app-wrapper" id="appWrapper">
+        <main style="flex: 1; overflow-y: hidden; display: flex; flex-direction: column;">
+            
+            <!-- Seite 1: Freie Übung / Timer -->
+            <section class="page" id="home-page">
+                <div class="header">
+                    <div class="logo">Zenith</div>
+                    <button class="theme-toggle-btn" id="themeToggleBtn">🌙</button>
+                </div>
+                <div style="padding-top: 30px;">
+                    <div class="session-header">
+                        <h2 class="session-title" id="sessionTitle">Freie Meditation</h2>
+                        <p class="session-subtitle" id="sessionSubtitle">Dauer & Klang frei wählen</p>
+                    </div>
+                    <div class="timer-circle" id="timerCircle">
+                        <div class="timer-inner">
+                            <div class="time-display" id="timeDisplay"></div>
+                            <div class="session-type" id="sessionType">Bereit</div>
+                            <div class="breathing-guide" id="breathingGuide">Einatmen...</div>
+                        </div>
+                        <svg class="progress-ring" viewBox="0 0 282 282"><circle class="progress-ring-progress" id="progressCircle" cx="141" cy="141" r="140" /></svg>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="startBtn">Start</button>
+                        <button class="btn btn-secondary" id="resetBtn">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seite 2: Entdecken (Hauptmenü & Kurslisten) -->
+            <section class="page active" id="discover-page">
+                <h1 class="page-title">Entdecken</h1>
+                
+                <!-- Auswahlmenü -->
+                <div id="discoverMenu">
+                    <div class="choice-card" id="choiceDetox"><h3>30-Tage Digital Detox</h3><p>Finde deine Ruhe in der digitalen Welt.</p></div>
+                    <div class="choice-card" id="choicePragmatic"><h3>Kurze Auszeit für den Job</h3><p>Fokus und Gelassenheit für Berufstätige.</p></div>
+                    <div class="choice-card" id="choiceFree"><h3>Freie Übung</h3><p>Meditiere frei nach deinen Wünschen.</p></div>
+                </div>
+
+                <!-- Container für Kurse & Einstellungen (standardmäßig versteckt) -->
+                <div class="course-container" id="digitalDetoxContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Digital Detox Kurs</h2><div class="voice-selector" style="margin-bottom: 20px;"><div class="section-title">Stimme wählen</div><div style="display: flex; gap: 10px;"><button class="btn btn-secondary" id="detoxVoiceMale" style="flex:1;">👨 Männlich</button><button class="btn btn-secondary" id="detoxVoiceFemale" style="flex:1;">👩 Weiblich</button></div></div><div class="course-list" id="detoxCourseList"></div></div>
+                <div class="course-container" id="pragmaticCourseContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Für Berufstätige</h2><div class="voice-selector" style="margin-bottom: 20px;"><div class="section-title">Stimme wählen</div><div style="display: flex; gap: 10px;"><button class="btn btn-secondary" id="pragmaticVoiceMale" style="flex:1;">👨 Männlich</button><button class="btn btn-secondary" id="pragmaticVoiceFemale" style="flex:1;">👩 Weiblich</button></div></div><div class="course-list" id="pragmaticCourseList"></div></div>
+                <div class="course-container" id="freePracticeContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Freie Übung einstellen</h2><div class="options"><div class="duration-selector"><div class="section-title">Dauer wählen</div><div class="duration-grid" id="durationGrid"></div></div><div class="sound-selector"><div class="section-title">Klang wählen</div><div class="sound-grid" id="soundGrid"></div></div></div><button class="btn btn-primary" id="startFreePracticeBtn" style="width: 100%; margin-top: 30px;">Meditation starten</button></div>
+            </section>
+
+            <!-- Seite 3: Kurs-Detailansicht -->
+            <section class="page" id="course-day-page">
+                <div class="header"><button class="back-btn" id="backToDiscoverBtn">←</button><div class="logo">Zenith</div></div>
+                <div class="course-day-content"><h2 id="courseDayTitle"></h2><div class="audio-player"><button id="coursePlayBtn" class="play-btn">▶</button><p>Meditation abspielen</p></div><div class="task-box"><h4>Tagesaufgabe</h4><p id="courseDayTask"></p></div><button class="btn btn-primary" id="markAsDoneBtn">Als erledigt markieren</button></div>
+            </section>
+            
+            <!-- Seite 4: Profil -->
+            <section class="page" id="profile-page">
+                <div class="profile-header"><h2>Dein Fortschritt</h2><p>Meditations-Meister</p></div>
+                <div class="profile-stats">
+                    <div class="stat-item"><div class="stat-number" id="profileSessions"></div><div class="stat-label">Sessions</div></div>
+                    <div class="stat-item"><div class="stat-number" id="profileMinutes"></div><div class="stat-label">Minuten</div></div>
+                    <div class="stat-item"><div class="stat-number" id="profileStreak"></div><div class="stat-label">Akt. Serie</div></div>
+                    <div class="stat-item"><div class="stat-number" id="profileLongestStreak"></div><div class="stat-label">Längste Serie</div></div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-secondary" id="calendarToggleBtn">📅 Aktivität anzeigen</button>
+                    <button class="btn btn-secondary" id="reminderBtn">🔔 Tägliche Erinnerung</button>
+                    <button class="btn btn-secondary" id="logoutBtn">🚪 Logout</button>
+                </div>
+                <div class="calendar-heatmap" id="calendarContainer"><div class="calendar-header" id="calendarHeader"></div><div class="calendar-grid" id="calendarGrid"></div></div>
+            </section>
+        </main>
+        
+        <nav class="navigation" id="navigation">
+            <button class="nav-btn" data-page="home-page">🏠</button>
+            <button class="nav-btn active" data-page="discover-page">🧭</button>
+            <button class="nav-btn" data-page="profile-page">👤</button>
+        </nav>
+    </div>
+    
+    <div class="modal" id="onboardingModal">
+        <div class="modal-content"><h3>Willkommen bei Zenith!</h3><p>Deiner persönlichen Oase der Ruhe.</p><div class="modal-buttons"><button class="btn btn-primary" id="closeOnboardingBtn">Los geht's</button></div></div>
+    </div>
+
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <h3>Anmelden</h3>
+            <input type="email" id="authEmail" placeholder="E-Mail" style="width: 100%; margin-bottom: 10px; padding: 10px;">
+            <input type="password" id="authPassword" placeholder="Passwort" style="width: 100%; margin-bottom: 10px; padding: 10px;">
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button class="btn btn-primary" id="loginBtn">Login</button>
+                <button class="btn btn-secondary" id="registerBtn">Registrieren</button>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px; justify-content: center;">
+                <button class="btn btn-secondary" id="googleLoginBtn" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    <span style="font-size: 18px;">🔵</span> Google
+                </button>
+                <button class="btn btn-secondary" id="appleLoginBtn" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    <span style="font-size: 18px;"></span> Apple
+                </button>
+            </div>
+            <div id="authError" style="color: #e53e3e; min-height: 20px; font-size: 14px;"></div>
+            <div style="margin-top: 10px;">
+                <a href="#" id="forgotPwLink" style="font-size: 14px; color: #3182ce; text-decoration: underline;">Passwort vergessen?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamische Vorschau für alle Audiodateien (Test/Entwicklung) -->
+    <section id="audioPreviewSection" style="padding: 30px; background: #f9fafb; border-top: 1px solid #e2e8f0;">
+        <h2>Audio-Vorschau (Test, reagiert auf Stimmenauswahl)</h2>
+        <div id="audioPreviewList"></div>
+    </section>
+
+    <!-- Verlinkung zur externen JavaScript-Datei -->
+    <script src="script.js"></script>
+</body>
+</html>
