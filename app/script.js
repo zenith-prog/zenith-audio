@@ -607,6 +607,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // In der Initialisierung: Auth prüfen und ggf. Modal anzeigen
     window.addEventListener('DOMContentLoaded', async () => {
         setupAuthHandlers();
+        
+        // Für Entwicklung: App immer initialisieren, auch ohne Login
+        await init();
+        
         firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 userId = user.uid;
