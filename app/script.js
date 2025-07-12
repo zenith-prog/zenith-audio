@@ -183,25 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function getAudioUrlForVoice(dayData, courseType, voiceGender) {
         let fileName = '';
         if (courseType === 'detox') {
-            if (voiceGender === 'female') {
-                fileName = `F_Tag${dayData.day}.mp3`;
-            } else {
-                fileName = `Tag${dayData.day}.mp3`;
-            }
-            // Beispiel: Dateien liegen im Ordner /audio/detox/
-            return `/audio/detox/${fileName}`;
+            fileName = voiceGender === 'female'
+                ? `F_Tag${dayData.day}.mp3`
+                : `Tag${dayData.day}.mp3`;
+            return BASE_AUDIO_URL + 'detox/' + fileName;
         } else if (courseType === 'pragmatic') {
-            // dayData.title ist z.B. "Fokus vor dem Meeting"
-            if (voiceGender === 'female') {
-                fileName = `F_${dayData.title}.mp3`;
-            } else {
-                fileName = `M_${dayData.title}.mp3`;
-            }
-            // Leerzeichen durch %20 für URL
+            fileName = (voiceGender === 'female' ? 'F_' : 'M_') + dayData.title + '.mp3';
             fileName = fileName.replace(/ /g, '%20');
-            return `/audio/pragmatic/${fileName}`;
+            return BASE_AUDIO_URL + 'pragmatic/' + fileName;
         }
-        // Fallback
         return '';
     }
     function openCourseDay(dayData, courseType) {
