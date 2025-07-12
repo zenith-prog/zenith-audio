@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { day: 2, title: "Stressabbau am Schreibtisch", duration: 180, task: "Mache eine 3-minütige Pause. Steh auf, strecke dich und atme fünfmal tief ein und aus." },
         { day: 3, title: "Feierabend", duration: 420, task: "Beende deinen Arbeitstag bewusst. Schließe alle Tabs, schreibe eine kurze To-Do-Liste für morgen und nimm dir dann 5 Minuten Zeit, um an etwas völlig anderes zu denken." },
     ];
+    const sleepCoachCourse = [
+        { day: 1, title: "Schlafmeditation", task: "Höre die Meditation vor dem Einschlafen und lasse den Tag los." }
+    ];
     const durationOptions = [ { duration: 60, label: '1 Min' }, { duration: 300, label: '5 Min' }, { duration: 600, label: '10 Min' }, { duration: 900, label: '15 Min' }, ];
     const ambientSounds = [ { id: 'rain', name: 'Regen', icon: '🌧️', url: 'https://cdn.pixabay.com/download/audio/2022/03/24/audio_1e3f2f6a3f.mp3' }, { id: 'forest', name: 'Wald', icon: '🌲', url: 'https://cdn.pixabay.com/download/audio/2022/02/04/audio_4c0d0f6b3a.mp3' }, { id: 'ocean', name: 'Ozean', icon: '🌊', url: 'https://cdn.pixabay.com/download/audio/2021/09/22/audio_1a9f0f3e4f.mp3' }, ];
 
@@ -48,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastSessionDate: null, sessionHistory: [], timerInterval: null,
         breathingInterval: null, currentAudio: new Audio(), courseProgress: {}, pragmaticProgress: {},
         selectedVoiceGender: 'male', // Standard: männliche Stimme
+        sleepCoachProgress: {},
     };
     const dom = {};
 
@@ -84,6 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDurationOptions();
         renderSoundOptions();
     }
+    function showSleepCoach() {
+        dom.discoverMenu.style.display = 'none';
+        dom.sleepCoachContainer.style.display = 'block';
+        renderSleepCoachCourse();
+        updateVoiceButtons('sleep');
+    }
     // Funktion zum Aktualisieren der Stimmenauswahl-Buttons
     function updateVoiceButtons(courseType) {
         const isMale = appState.selectedVoiceGender === 'male';
@@ -93,6 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (courseType === 'pragmatic') {
             dom.pragmaticVoiceMale.classList.toggle('active', isMale);
             dom.pragmaticVoiceFemale.classList.toggle('active', !isMale);
+        } else if (courseType === 'sleep') {
+            dom.sleepVoiceMale.classList.toggle('active', isMale);
+            dom.sleepVoiceFemale.classList.toggle('active', !isMale);
         }
     }
     function setDarkMode(isDark) {
@@ -135,6 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
             item.innerHTML = `<div class="course-day-number">💼</div><div class="course-day-title">${day.title}</div>${isCompleted ? '<div class="course-day-check">✓</div>' : ''}`;
             item.onclick = () => openCourseDay(day, 'pragmatic');
             dom.pragmaticCourseList.appendChild(item);
+        });
+    }
+    function renderSleepCoachCourse() {
+        dom.sleepCoachCourseList.innerHTML = '';
+        sleepCoachCourse.forEach(day => {
+            const isCompleted = appState.sleepCoachProgress[day.day] || false;
+            const item = document.createElement('div');
+            item.className = 'course-day-item';
+            if (isCompleted) item.classList.add('completed');
+            item.innerHTML = `<div class="course-day-number">${day.day}</div><div class="course-day-title">${day.title}</div>${isCompleted ? '<div class="course-day-check">✓</div>' : ''}`;
+            item.onclick = () => openCourseDay(day, 'sleep');
+            dom.sleepCoachCourseList.appendChild(item);
         });
     }
     function renderDurationOptions() {
@@ -192,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
             fileName = (voiceGender === 'female' ? 'F_' : 'M_') + dayData.title + '.mp3';
             fileName = fileName.replace(/ /g, '%20');
             return BASE_AUDIO_URL + 'pragmatic/' + fileName;
+        } else if (courseType === 'sleep') {
+            fileName = voiceGender === 'female' ? 'F_schlaf.mp3' : 'schlaf.mp3';
+            return BASE_AUDIO_URL + 'schlaf/' + fileName;
         }
         return '';
     }
@@ -202,8 +230,32 @@ document.addEventListener('DOMContentLoaded', () => {
         appState.currentAudio.src = audioUrl;
         dom.coursePlayBtn.textContent = '▶';
         dom.coursePlayBtn.onclick = () => playCourseAudio();
-        const progress = courseType === 'detox' ? appState.courseProgress : appState.pragmaticProgress;
-        const isCompleted = progress[dayData.day] || false;
+        // Fortschrittsbalken einbauen
+        if (!dom.audioProgressBar) {
+            dom.audioProgressBar = document.createElement('input');
+            dom.audioProgressBar.type = 'range';
+            dom.audioProgressBar.min = 0;
+            dom.audioProgressBar.max = 100;
+            dom.audioProgressBar.value = 0;
+            dom.audioProgressBar.className = 'audio-progress-bar';
+            dom.coursePlayBtn.parentNode.appendChild(dom.audioProgressBar);
+        }
+        appState.currentAudio.ontimeupdate = () => {
+            if (appState.currentAudio.duration) {
+                dom.audioProgressBar.value = Math.floor((appState.currentAudio.currentTime / appState.currentAudio.duration) * 100);
+            }
+        };
+        dom.audioProgressBar.oninput = (e) => {
+            if (appState.currentAudio.duration) {
+                appState.currentAudio.currentTime = (dom.audioProgressBar.value / 100) * appState.currentAudio.duration;
+            }
+        };
+        // Fortschritt-Logik
+        let progress, isCompleted;
+        if (courseType === 'detox') progress = appState.courseProgress;
+        else if (courseType === 'pragmatic') progress = appState.pragmaticProgress;
+        else if (courseType === 'sleep') progress = appState.sleepCoachProgress;
+        isCompleted = progress[dayData.day] || false;
         dom.markAsDoneBtn.textContent = isCompleted ? 'Erledigt' : 'Als erledigt markieren';
         dom.markAsDoneBtn.disabled = isCompleted;
         dom.markAsDoneBtn.onclick = () => {
@@ -225,9 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (courseType === 'detox') {
             appState.courseProgress[dayData.day] = true;
             saveData('zenith_course_progress', appState.courseProgress);
-        } else {
+        } else if (courseType === 'pragmatic') {
             appState.pragmaticProgress[dayData.day] = true;
             saveData('zenith_pragmatic_progress', appState.pragmaticProgress);
+        } else if (courseType === 'sleep') {
+            appState.sleepCoachProgress[dayData.day] = true;
+            saveData('zenith_sleep_progress', appState.sleepCoachProgress);
         }
         recordSession(dayData.duration || 300);
         renderAll();
@@ -406,6 +461,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (key === 'zenith_pragmatic_progress') {
             saveProgressToFirestore('pragmaticProgress', data);
         }
+        if (key === 'zenith_sleep_progress') {
+            saveProgressToFirestore('sleepCoachProgress', data);
+        }
     }
     function loadData(key, defaultValue) {
         const data = localStorage.getItem(key);
@@ -535,7 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'startFreePracticeBtn', 'backToDiscoverBtn', 'courseDayTitle',
             'courseDayTask', 'coursePlayBtn', 'markAsDoneBtn', 'profileSessions',
             'profileMinutes', 'profileStreak', 'profileLongestStreak', 'closeOnboardingBtn',
-            'detoxVoiceMale', 'detoxVoiceFemale', 'pragmaticVoiceMale', 'pragmaticVoiceFemale'
+            'detoxVoiceMale', 'detoxVoiceFemale', 'pragmaticVoiceMale', 'pragmaticVoiceFemale',
+            'sleepVoiceMale', 'sleepVoiceFemale', 'sleepCoachContainer', 'sleepCoachCourseList'
         ];
         ids.forEach(id => dom[id] = document.getElementById(id));
         dom.pages = {
@@ -574,6 +633,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('onboardingModal').classList.remove('show');
             localStorage.setItem('zenith_visited', 'true');
         });
+        dom.choiceSleep.addEventListener('click', showSleepCoach);
+        dom.sleepVoiceMale.onclick = () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('sleep'); };
+        dom.sleepVoiceFemale.onclick = () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('sleep'); };
 
         // Stimmenauswahl-Buttons
         const voiceButtons = {
@@ -590,12 +652,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setDarkMode(loadData('zenith_theme', 'light') === 'dark');
         let courseProgress = loadData('zenith_course_progress', {});
         let pragmaticProgress = loadData('zenith_pragmatic_progress', {});
+        let sleepCoachProgress = loadData('zenith_sleep_progress', {});
         let stats = loadData('zenith_stats', {});
         // Versuche, aus Firestore zu laden
-        const [cloudStats, cloudCourse, cloudPragmatic] = await Promise.all([
+        const [cloudStats, cloudCourse, cloudPragmatic, cloudSleep] = await Promise.all([
             loadStatsFromFirestore(),
             loadProgressFromFirestore('courseProgress'),
-            loadProgressFromFirestore('pragmaticProgress')
+            loadProgressFromFirestore('pragmaticProgress'),
+            loadProgressFromFirestore('sleepCoachProgress')
         ]);
         if (cloudStats) {
             stats = cloudStats;
@@ -609,8 +673,13 @@ document.addEventListener('DOMContentLoaded', () => {
             pragmaticProgress = cloudPragmatic;
             saveData('zenith_pragmatic_progress', pragmaticProgress);
         }
+        if (cloudSleep) {
+            sleepCoachProgress = cloudSleep;
+            saveData('zenith_sleep_progress', sleepCoachProgress);
+        }
         appState.courseProgress = courseProgress;
         appState.pragmaticProgress = pragmaticProgress;
+        appState.sleepCoachProgress = sleepCoachProgress;
         Object.assign(appState, stats);
         
         if (!localStorage.getItem('zenith_visited')) {
