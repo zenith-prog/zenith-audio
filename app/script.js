@@ -229,7 +229,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const audioUrl = getAudioUrlForVoice(dayData, courseType, appState.selectedVoiceGender);
         appState.currentAudio.src = audioUrl;
         dom.coursePlayBtn.textContent = '▶';
-        dom.coursePlayBtn.onclick = () => playCourseAudio();
+        dom.coursePlayBtn.onclick = () => {
+            appState.currentAudio.play().catch(e => {
+                console.log('Audio play error:', e);
+            });
+        };
         // Fortschrittsbalken einbauen
         if (!dom.audioProgressBar) {
             dom.audioProgressBar = document.createElement('input');
@@ -633,9 +637,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('onboardingModal').classList.remove('show');
             localStorage.setItem('zenith_visited', 'true');
         });
-        dom.choiceSleep.addEventListener('click', showSleepCoach);
-        dom.sleepVoiceMale.onclick = () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('sleep'); };
-        dom.sleepVoiceFemale.onclick = () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('sleep'); };
+        if (dom.choiceSleep) dom.choiceSleep.addEventListener('click', showSleepCoach);
+        if (dom.sleepVoiceMale) dom.sleepVoiceMale.onclick = () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('sleep'); };
+        if (dom.sleepVoiceFemale) dom.sleepVoiceFemale.onclick = () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('sleep'); };
 
         // Stimmenauswahl-Buttons
         const voiceButtons = {
