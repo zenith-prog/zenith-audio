@@ -176,3 +176,10 @@ body {
 .modal h3 { color: var(--text-dark); font-size: 22px; font-weight: 600; margin-bottom: 10px; }
 .modal p { color: var(--text-light); font-size: 16px; line-height: 1.5; margin-bottom: 25px; }
 .modal-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
+.btn-secondary.active {
+    background: var(--primary-gradient);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(20,184,166,0.10);
+    transform: translateY(-1px);
+}
