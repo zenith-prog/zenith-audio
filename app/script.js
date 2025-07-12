@@ -351,25 +351,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Statistiken in Firestore speichern
     function saveStatsToFirestore(stats) {
-        return db.collection('users').doc(userId).set({ stats }, { merge: true });
+        if (!userId) return Promise.resolve(); // Kein User eingeloggt
+        try {
+            return db.collection('users').doc(userId).set({ stats }, { merge: true });
+        } catch (error) {
+            console.log('Firebase error:', error);
+            return Promise.resolve();
+        }
     }
     // Statistiken aus Firestore laden
     async function loadStatsFromFirestore() {
-        const doc = await db.collection('users').doc(userId).get();
-        if (doc.exists && doc.data().stats) {
-            return doc.data().stats;
+        if (!userId) return null; // Kein User eingeloggt
+        try {
+            const doc = await db.collection('users').doc(userId).get();
+            if (doc.exists && doc.data().stats) {
+                return doc.data().stats;
+            }
+        } catch (error) {
+            console.log('Firebase error:', error);
         }
         return null;
     }
     // Kursfortschritt in Firestore speichern
     function saveProgressToFirestore(progressKey, progressData) {
-        return db.collection('users').doc(userId).set({ [progressKey]: progressData }, { merge: true });
+        if (!userId) return Promise.resolve(); // Kein User eingeloggt
+        try {
+            return db.collection('users').doc(userId).set({ [progressKey]: progressData }, { merge: true });
+        } catch (error) {
+            console.log('Firebase error:', error);
+            return Promise.resolve();
+        }
     }
     // Kursfortschritt aus Firestore laden
     async function loadProgressFromFirestore(progressKey) {
-        const doc = await db.collection('users').doc(userId).get();
-        if (doc.exists && doc.data()[progressKey]) {
-            return doc.data()[progressKey];
+        if (!userId) return null; // Kein User eingeloggt
+        try {
+            const doc = await db.collection('users').doc(userId).get();
+            if (doc.exists && doc.data()[progressKey]) {
+                return doc.data()[progressKey];
+            }
+        } catch (error) {
+            console.log('Firebase error:', error);
         }
         return null;
     }
