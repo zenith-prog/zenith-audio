@@ -1,3 +1,4 @@
+const BASE_AUDIO_URL = 'https://zenith-audio.vercel.app/';
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATEN ---
     const digitalDetoxCourse = [
