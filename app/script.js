@@ -613,7 +613,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 showAuthModal(false);
                 await afterAuth();
             } else {
-                document.querySelector('.app-wrapper').style.display = 'none';
+                // Für Entwicklung: App immer anzeigen, auch ohne Login
+                // document.querySelector('.app-wrapper').style.display = 'none';
                 showAuthModal(true);
             }
         });
