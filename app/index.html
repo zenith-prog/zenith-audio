@@ -49,6 +49,7 @@
                 <div id="discoverMenu">
                     <div class="choice-card" id="choiceDetox"><h3>30-Tage Digital Detox</h3><p>Finde deine Ruhe in der digitalen Welt.</p></div>
                     <div class="choice-card" id="choicePragmatic"><h3>Kurze Auszeit für den Job</h3><p>Fokus und Gelassenheit für Berufstätige.</p></div>
+                    <div class="choice-card" id="choiceSleep"><h3>Schlafcoach</h3><p>Entspannt einschlafen mit Meditation.</p></div>
                     <div class="choice-card" id="choiceFree"><h3>Freie Übung</h3><p>Meditiere frei nach deinen Wünschen.</p></div>
                 </div>
 
@@ -56,6 +57,20 @@
                 <div class="course-container" id="digitalDetoxContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Digital Detox Kurs</h2><div class="voice-selector" style="margin-bottom: 20px;"><div class="section-title">Stimme wählen</div><div style="display: flex; gap: 10px;"><button class="btn btn-secondary" id="detoxVoiceMale" style="flex:1;">👨 Männlich</button><button class="btn btn-secondary" id="detoxVoiceFemale" style="flex:1;">👩 Weiblich</button></div></div><div class="course-list" id="detoxCourseList"></div></div>
                 <div class="course-container" id="pragmaticCourseContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Für Berufstätige</h2><div class="voice-selector" style="margin-bottom: 20px;"><div class="section-title">Stimme wählen</div><div style="display: flex; gap: 10px;"><button class="btn btn-secondary" id="pragmaticVoiceMale" style="flex:1;">👨 Männlich</button><button class="btn btn-secondary" id="pragmaticVoiceFemale" style="flex:1;">👩 Weiblich</button></div></div><div class="course-list" id="pragmaticCourseList"></div></div>
                 <div class="course-container" id="freePracticeContainer"><button class="back-to-menu-btn">← Zurück zur Auswahl</button><h2 class="course-container-title">Freie Übung einstellen</h2><div class="options"><div class="duration-selector"><div class="section-title">Dauer wählen</div><div class="duration-grid" id="durationGrid"></div></div><div class="sound-selector"><div class="section-title">Klang wählen</div><div class="sound-grid" id="soundGrid"></div></div></div><button class="btn btn-primary" id="startFreePracticeBtn" style="width: 100%; margin-top: 30px;">Meditation starten</button></div>
+
+                <!-- Schlafcoach-Kurscontainer (analog Detox) -->
+                <div class="course-container" id="sleepCoachContainer">
+                    <button class="back-to-menu-btn">← Zurück zur Auswahl</button>
+                    <h2 class="course-container-title">Schlafcoach</h2>
+                    <div class="voice-selector" style="margin-bottom: 20px;">
+                        <div class="section-title">Stimme wählen</div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-secondary" id="sleepVoiceMale" style="flex:1;">👨 Männlich</button>
+                            <button class="btn btn-secondary" id="sleepVoiceFemale" style="flex:1;">👩 Weiblich</button>
+                        </div>
+                    </div>
+                    <div class="course-list" id="sleepCoachCourseList"></div>
+                </div>
             </section>
 
             <!-- Seite 3: Kurs-Detailansicht -->
