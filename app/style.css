@@ -140,6 +140,14 @@ body {
     width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer;
 }
 .audio-player p { color: var(--text-dark); font-weight: 500; }
+.audio-progress-bar {
+    width: 100%;
+    margin-top: 10px;
+    accent-color: var(--primary-color);
+    height: 6px;
+    border-radius: 4px;
+    background: var(--border-color);
+}
 .task-box {
     background: var(--bg-secondary-color); border: 1px solid var(--border-color);
     border-radius: 18px; padding: 20px; text-align: left; margin-bottom: 30px;
