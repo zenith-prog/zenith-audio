@@ -241,16 +241,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Audio play error:', e);
             });
         };
-        // Fortschrittsbalken einbauen
-        if (!dom.audioProgressBar) {
-            dom.audioProgressBar = document.createElement('input');
-            dom.audioProgressBar.type = 'range';
-            dom.audioProgressBar.min = 0;
-            dom.audioProgressBar.max = 100;
-            dom.audioProgressBar.value = 0;
-            dom.audioProgressBar.className = 'audio-progress-bar';
-            dom.coursePlayBtn.parentNode.appendChild(dom.audioProgressBar);
+        // Fortschrittsbalken als separates Element unterhalb des Audio-Players
+        // Vorherige Balken entfernen
+        const audioPlayerDiv = dom.coursePlayBtn.parentNode;
+        if (dom.audioProgressBar && dom.audioProgressBar.parentNode) {
+            dom.audioProgressBar.parentNode.removeChild(dom.audioProgressBar);
         }
+        dom.audioProgressBar = document.createElement('input');
+        dom.audioProgressBar.type = 'range';
+        dom.audioProgressBar.min = 0;
+        dom.audioProgressBar.max = 100;
+        dom.audioProgressBar.value = 0;
+        dom.audioProgressBar.className = 'audio-progress-bar';
+        // Füge den Balken unterhalb des .audio-player-Containers ein
+        audioPlayerDiv.parentNode.appendChild(dom.audioProgressBar);
         appState.currentAudio.ontimeupdate = () => {
             if (appState.currentAudio.duration) {
                 dom.audioProgressBar.value = Math.floor((appState.currentAudio.currentTime / appState.currentAudio.duration) * 100);
