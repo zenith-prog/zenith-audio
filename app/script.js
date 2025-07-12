@@ -387,7 +387,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function loadData(key, defaultValue) {
         const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : defaultValue;
+        if (!data) return defaultValue;
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            // Fallback: Gib den Wert als String zurück, falls kein JSON
+            return data;
+        }
     }
 
     // --- TIMER-LOGIK ---
