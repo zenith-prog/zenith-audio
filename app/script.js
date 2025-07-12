@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dom.digitalDetoxContainer.style.display = 'none';
         dom.pragmaticCourseContainer.style.display = 'none';
         dom.freePracticeContainer.style.display = 'none';
+        if (dom.sleepCoachContainer) dom.sleepCoachContainer.style.display = 'none';
     }
     function showDetoxCourse() {
         dom.discoverMenu.style.display = 'none';
@@ -93,7 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function showSleepCoach() {
         dom.discoverMenu.style.display = 'none';
-        dom.sleepCoachContainer.style.display = 'block';
+        if (dom.sleepCoachContainer) dom.sleepCoachContainer.style.display = 'block';
+        if (dom.digitalDetoxContainer) dom.digitalDetoxContainer.style.display = 'none';
+        if (dom.pragmaticCourseContainer) dom.pragmaticCourseContainer.style.display = 'none';
+        if (dom.freePracticeContainer) dom.freePracticeContainer.style.display = 'none';
         renderSleepCoachCourse();
         updateVoiceButtons('sleep');
     }
@@ -492,7 +496,11 @@ document.addEventListener('DOMContentLoaded', () => {
         dom.sessionType.textContent = 'Läuft';
         startBreathingGuide();
         const sound = ambientSounds.find(s => s.id === appState.selectedSoundId);
-        if (sound) { appState.currentAudio.src = sound.url; appState.currentAudio.loop = true; appState.currentAudio.play(); }
+        if (sound && sound.url) {
+            appState.currentAudio.src = sound.url;
+            appState.currentAudio.loop = true;
+            appState.currentAudio.play().catch(e => { console.log('Audio play error:', e); });
+        }
         appState.timerInterval = setInterval(() => {
             appState.timeRemaining--;
             renderHomePage();
