@@ -609,7 +609,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'courseDayTask', 'coursePlayBtn', 'markAsDoneBtn', 'profileSessions',
             'profileMinutes', 'profileStreak', 'profileLongestStreak', 'closeOnboardingBtn',
             'detoxVoiceMale', 'detoxVoiceFemale', 'pragmaticVoiceMale', 'pragmaticVoiceFemale',
-            'sleepVoiceMale', 'sleepVoiceFemale', 'sleepCoachContainer', 'sleepCoachCourseList'
+            'sleepVoiceMale', 'sleepVoiceFemale', 'sleepCoachContainer', 'sleepCoachCourseList',
+            'choiceSleep'
         ];
         ids.forEach(id => dom[id] = document.getElementById(id));
         dom.pages = {
