@@ -1,41 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATEN ---
     const digitalDetoxCourse = [
-        { day: 1, title: "Der erste Griff am Morgen", task: "Warte morgen früh bewusst 5 Minuten nach dem Aufwachen, bevor du auf einen Bildschirm schaust.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 2, title: "Der Phantom-Griff", task: "Lege dein Handy heute bei der Arbeit oder zu Hause mit dem Bildschirm nach unten.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 3, title: "Die Scroll-Hypnose", task: "Bevor du heute eine Social-Media-App öffnest, halte kurz inne und frage dich: 'Was will ich hier eigentlich gerade?'", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 4, title: "Die Benachrichtigungs-Falle", task: "Schalte für eine Stunde alle Benachrichtigungen aus, außer Anrufe.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 5, title: "Emotionale Trigger", task: "Notiere dir heute (auf Papier!), in welcher emotionalen Verfassung du warst, als du ziellos zum Handy gegriffen hast.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 6, title: "Der Vergleichs-Effekt", task: "Entfolge heute einem Account, bei dem du dich nach dem Ansehen seiner Inhalte regelmäßig schlechter fühlst.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 7, title: "Wochenreflexion", task: "Schreibe drei Dinge auf, die dich in dieser Woche am meisten an deinem Nutzungsverhalten überrascht haben.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 8, title: "Das schlafende Handy", task: "Lade dein Handy heute Nacht außerhalb deines Schlafzimmers. Benutze einen klassischen Wecker.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 9, title: "Bildschirmfreie Mahlzeiten", task: "Iss heute mindestens eine Mahlzeit komplett ohne Bildschirm.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 10, title: "Die 5-Minuten-Regel", task: "Wende die 5-Minuten-Regel heute mindestens einmal an, bevor du eine Social-Media- oder News-App öffnest.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 11, title: "Entrümpel deinen Startbildschirm", task: "Reduziere deinen Startbildschirm auf die absolut notwendigen Werkzeug-Apps.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 12, title: "Der bewusste Spaziergang", task: "Mache heute einen 15-minütigen Spaziergang und lasse dein Handy bewusst in der Tasche.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 13, title: "'Bitte nicht stören' als Superkraft", task: "Nutze heute für eine 45-minütige Arbeits- oder Lernphase aktiv den 'Nicht stören'-Modus.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 14, title: "Wochenreflexion", task: "Welche der Regeln dieser Woche fiel dir am leichtesten, welche am schwersten? Überlege, warum.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 15, title: "Die Langeweile neu entdecken", task: "Setze dich heute für 5 Minuten an einen Ort ohne jegliche Ablenkung und tu nichts.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 16, title: "Ein altes Hobby wiederbeleben", task: "Verbringe heute 20 Minuten mit einem Hobby, das nichts mit einem Bildschirm zu tun hat.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 17, title: "Echte Gespräche", task: "Rufe heute einen Freund oder ein Familienmitglied an, anstatt eine Nachricht zu schreiben.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 18, title: "Lesen auf Papier", task: "Lies heute 15 Seiten in einem physischen Buch oder Artikel.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 19, title: "Natur als Gegenmittel", task: "Verbringe 20 Minuten bewusst in der Natur.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 20, title: "Kreativität ohne Bildschirm", task: "Koche ein neues Rezept, schreibe einen Tagebucheintrag oder zeichne etwas – Hauptsache, es ist analog.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 21, title: "Wochenreflexion", task: "Was hat dir diese Woche am meisten Freude bereitet? Plane diese Aktivität auch in der nächsten Woche fest ein.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 22, title: "Der digitale Werkzeugkasten", task: "Gehe durch deine Apps und frage dich bei jeder: 'Welchen positiven Zweck erfüllt diese App?'", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 23, title: "Plane deine Online-Zeit", task: "Definiere für morgen zwei feste 'Online-Fenster' und versuche, dich daran zu halten.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 24, title: "Der wöchentliche Mini-Detox", task: "Plane für das kommende Wochenende einen Zeitraum von 3-4 Stunden, in dem du dein Handy komplett ausschaltest.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 25, title: "Sei ein Vorbild", task: "Achte beim nächsten Treffen mit anderen Menschen bewusst darauf, präsent zu sein.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 26, title: "Umgang mit Rückfällen", task: "Entwickle einen kleinen 'Notfallplan' für deine größte Herausforderung.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 27, title: "Die Freude am Verpassen (JOMO)", task: "Sage heute bewusst 'Nein' zu einer digitalen Ablenkung und genieße das Gefühl der Ruhe.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 28, title: "Integration Tag 1", task: "Wähle die für dich wirkungsvollste Übung aus Woche 1 und wiederhole sie heute.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 29, title: "Integration Tag 2", task: "Wähle die für dich wirkungsvollste Übung aus Woche 2 und wiederhole sie heute.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 30, title: "Dein neuer Weg", task: "Wähle die für dich wirkungsvollste Übung aus Woche 3 und mache sie zu einem festen Bestandteil deines Lebens.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" }
+        { day: 1, title: "Der erste Griff am Morgen", task: "Warte morgen früh bewusst 5 Minuten nach dem Aufwachen, bevor du auf einen Bildschirm schaust." },
+        { day: 2, title: "Der Phantom-Griff", task: "Lege dein Handy heute bei der Arbeit oder zu Hause mit dem Bildschirm nach unten." },
+        { day: 3, title: "Die Scroll-Hypnose", task: "Bevor du heute eine Social-Media-App öffnest, halte kurz inne und frage dich: 'Was will ich hier eigentlich gerade?'" },
+        { day: 4, title: "Die Benachrichtigungs-Falle", task: "Schalte für eine Stunde alle Benachrichtigungen aus, außer Anrufe." },
+        { day: 5, title: "Emotionale Trigger", task: "Notiere dir heute (auf Papier!), in welcher emotionalen Verfassung du warst, als du ziellos zum Handy gegriffen hast." },
+        { day: 6, title: "Der Vergleichs-Effekt", task: "Entfolge heute einem Account, bei dem du dich nach dem Ansehen seiner Inhalte regelmäßig schlechter fühlst." },
+        { day: 7, title: "Wochenreflexion", task: "Schreibe drei Dinge auf, die dich in dieser Woche am meisten an deinem Nutzungsverhalten überrascht haben." },
+        { day: 8, title: "Das schlafende Handy", task: "Lade dein Handy heute Nacht außerhalb deines Schlafzimmers. Benutze einen klassischen Wecker." },
+        { day: 9, title: "Bildschirmfreie Mahlzeiten", task: "Iss heute mindestens eine Mahlzeit komplett ohne Bildschirm." },
+        { day: 10, title: "Die 5-Minuten-Regel", task: "Wende die 5-Minuten-Regel heute mindestens einmal an, bevor du eine Social-Media- oder News-App öffnest." },
+        { day: 11, title: "Entrümpel deinen Startbildschirm", task: "Reduziere deinen Startbildschirm auf die absolut notwendigen Werkzeug-Apps." },
+        { day: 12, title: "Der bewusste Spaziergang", task: "Mache heute einen 15-minütigen Spaziergang und lasse dein Handy bewusst in der Tasche." },
+        { day: 13, title: "'Bitte nicht stören' als Superkraft", task: "Nutze heute für eine 45-minütige Arbeits- oder Lernphase aktiv den 'Nicht stören'-Modus." },
+        { day: 14, title: "Wochenreflexion", task: "Welche der Regeln dieser Woche fiel dir am leichtesten, welche am schwersten? Überlege, warum." },
+        { day: 15, title: "Die Langeweile neu entdecken", task: "Setze dich heute für 5 Minuten an einen Ort ohne jegliche Ablenkung und tu nichts." },
+        { day: 16, title: "Ein altes Hobby wiederbeleben", task: "Verbringe heute 20 Minuten mit einem Hobby, das nichts mit einem Bildschirm zu tun hat." },
+        { day: 17, title: "Echte Gespräche", task: "Rufe heute einen Freund oder ein Familienmitglied an, anstatt eine Nachricht zu schreiben." },
+        { day: 18, title: "Lesen auf Papier", task: "Lies heute 15 Seiten in einem physischen Buch oder Artikel." },
+        { day: 19, title: "Natur als Gegenmittel", task: "Verbringe 20 Minuten bewusst in der Natur." },
+        { day: 20, title: "Kreativität ohne Bildschirm", task: "Koche ein neues Rezept, schreibe einen Tagebucheintrag oder zeichne etwas – Hauptsache, es ist analog." },
+        { day: 21, title: "Wochenreflexion", task: "Was hat dir diese Woche am meisten Freude bereitet? Plane diese Aktivität auch in der nächsten Woche fest ein." },
+        { day: 22, title: "Der digitale Werkzeugkasten", task: "Gehe durch deine Apps und frage dich bei jeder: 'Welchen positiven Zweck erfüllt diese App?'" },
+        { day: 23, title: "Plane deine Online-Zeit", task: "Definiere für morgen zwei feste 'Online-Fenster' und versuche, dich daran zu halten." },
+        { day: 24, title: "Der wöchentliche Mini-Detox", task: "Plane für das kommende Wochenende einen Zeitraum von 3-4 Stunden, in dem du dein Handy komplett ausschaltest." },
+        { day: 25, title: "Sei ein Vorbild", task: "Achte beim nächsten Treffen mit anderen Menschen bewusst darauf, präsent zu sein." },
+        { day: 26, title: "Umgang mit Rückfällen", task: "Entwickle einen kleinen 'Notfallplan' für deine größte Herausforderung." },
+        { day: 27, title: "Die Freude am Verpassen (JOMO)", task: "Sage heute bewusst 'Nein' zu einer digitalen Ablenkung und genieße das Gefühl der Ruhe." },
+        { day: 28, title: "Integration Tag 1", task: "Wähle die für dich wirkungsvollste Übung aus Woche 1 und wiederhole sie heute." },
+        { day: 29, title: "Integration Tag 2", task: "Wähle die für dich wirkungsvollste Übung aus Woche 2 und wiederhole sie heute." },
+        { day: 30, title: "Dein neuer Weg", task: "Wähle die für dich wirkungsvollste Übung aus Woche 3 und mache sie zu einem festen Bestandteil deines Lebens." }
     ];
     const pragmaticCourse = [
-        { day: 1, title: "Fokus vor dem Meeting", duration: 300, task: "Schließe für 3 Minuten die Augen und konzentriere dich nur auf deinen Atem. Bereite dich mental auf das Gespräch vor.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/11/22/audio_2c4a896470.mp3", voiceGender: "male" },
-        { day: 2, title: "Stressabbau am Schreibtisch", duration: 180, task: "Mache eine 3-minütige Pause. Steh auf, strecke dich und atme fünfmal tief ein und aus.", audioUrl: "https://cdn.pixabay.com/download/audio/2022/08/03/audio_504a2353a2.mp3", voiceGender: "male" },
-        { day: 3, title: "Klarer Kopf für den Feierabend", duration: 420, task: "Beende deinen Arbeitstag bewusst. Schließe alle Tabs, schreibe eine kurze To-Do-Liste für morgen und nimm dir dann 5 Minuten Zeit, um an etwas völlig anderes zu denken.", audioUrl: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_3e6a4a5747.mp3", voiceGender: "male" },
+        { day: 1, title: "Fokus vor dem Meeting", duration: 300, task: "Schließe für 3 Minuten die Augen und konzentriere dich nur auf deinen Atem. Bereite dich mental auf das Gespräch vor." },
+        { day: 2, title: "Stressabbau am Schreibtisch", duration: 180, task: "Mache eine 3-minütige Pause. Steh auf, strecke dich und atme fünfmal tief ein und aus." },
+        { day: 3, title: "Feierabend", duration: 420, task: "Beende deinen Arbeitstag bewusst. Schließe alle Tabs, schreibe eine kurze To-Do-Liste für morgen und nimm dir dann 5 Minuten Zeit, um an etwas völlig anderes zu denken." },
     ];
     const durationOptions = [ { duration: 60, label: '1 Min' }, { duration: 300, label: '5 Min' }, { duration: 600, label: '10 Min' }, { duration: 900, label: '15 Min' }, ];
     const ambientSounds = [ { id: 'rain', name: 'Regen', icon: '🌧️', url: 'https://cdn.pixabay.com/download/audio/2022/03/24/audio_1e3f2f6a3f.mp3' }, { id: 'forest', name: 'Wald', icon: '🌲', url: 'https://cdn.pixabay.com/download/audio/2022/02/04/audio_4c0d0f6b3a.mp3' }, { id: 'ocean', name: 'Ozean', icon: '🌊', url: 'https://cdn.pixabay.com/download/audio/2021/09/22/audio_1a9f0f3e4f.mp3' }, ];
@@ -548,10 +548,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Stimmenauswahl-Buttons
         const voiceButtons = {
-            'detoxVoiceMale': () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('detox'); renderAudioPreview(); },
-            'detoxVoiceFemale': () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('detox'); renderAudioPreview(); },
-            'pragmaticVoiceMale': () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('pragmatic'); renderAudioPreview(); },
-            'pragmaticVoiceFemale': () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('pragmatic'); renderAudioPreview(); }
+            'detoxVoiceMale': () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('detox'); },
+            'detoxVoiceFemale': () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('detox'); },
+            'pragmaticVoiceMale': () => { appState.selectedVoiceGender = 'male'; updateVoiceButtons('pragmatic'); },
+            'pragmaticVoiceFemale': () => { appState.selectedVoiceGender = 'female'; updateVoiceButtons('pragmatic'); }
         };
         Object.entries(voiceButtons).forEach(([id, handler]) => {
             if (dom[id]) dom[id].onclick = handler;
@@ -592,28 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAll();
     }
 
-    // Vorschau-Funktion für alle Audiodateien
-    function renderAudioPreview() {
-        const previewList = document.getElementById('audioPreviewList');
-        if (!previewList) return;
-        const gender = appState.selectedVoiceGender;
-        let html = `<h3>Detox (${gender === 'male' ? 'männlich' : 'weiblich'})</h3>`;
-        for (let i = 1; i <= 30; i++) {
-            const url = getAudioUrlForVoice({day: i}, 'detox', gender);
-            html += `<div><b>${gender === 'male' ? 'Tag' : 'F_Tag'}${i}:</b> <audio controls src="${url}"></audio> <a href="${url}" target="_blank">Link</a></div>`;
-        }
-        html += `<h3>Pragmatic (${gender === 'male' ? 'männlich' : 'weiblich'})</h3>`;
-        const pragmaticTitles = [
-            'Fokus vor dem Meeting',
-            'Stressabbau am Schreibtisch',
-            'Feierabend'
-        ];
-        for (const title of pragmaticTitles) {
-            const url = getAudioUrlForVoice({title}, 'pragmatic', gender);
-            html += `<div><b>${gender === 'male' ? 'M_' : 'F_'}${title}:</b> <audio controls src="${url}"></audio> <a href="${url}" target="_blank">Link</a></div>`;
-        }
-        previewList.innerHTML = html;
-    }
+    // Entferne renderAudioPreview und alle Aufrufe davon
 
     // User-ID dynamisch aus Auth
     // const userId = 'demo-user'; // ENTFERNT
@@ -631,6 +610,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 showAuthModal(true);
             }
         });
-        renderAudioPreview();
     });
 });
