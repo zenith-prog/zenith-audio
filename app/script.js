@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { day: 1, title: "Schlafmeditation", task: "Höre die Meditation vor dem Einschlafen und lasse den Tag los." }
     ];
     const durationOptions = [ { duration: 60, label: '1 Min' }, { duration: 300, label: '5 Min' }, { duration: 600, label: '10 Min' }, { duration: 900, label: '15 Min' }, ];
-    const ambientSounds = [ { id: 'rain', name: 'Regen', icon: '🌧️', url: 'https://cdn.pixabay.com/download/audio/2022/03/24/audio_1e3f2f6a3f.mp3' }, { id: 'forest', name: 'Wald', icon: '🌲', url: 'https://cdn.pixabay.com/download/audio/2022/02/04/audio_4c0d0f6b3a.mp3' }, { id: 'ocean', name: 'Ozean', icon: '🌊', url: 'https://cdn.pixabay.com/download/audio/2021/09/22/audio_1a9f0f3e4f.mp3' }, ];
+    const ambientSounds = [
+        // Beispiel: Hier können eigene/andere Sounds eingefügt werden
+        // { id: 'rain', name: 'Regen', icon: '🌧️', url: 'https://deinserver.de/audio/rain.mp3' },
+    ];
 
     // --- ZUSTAND & DOM ---
     const appState = {
